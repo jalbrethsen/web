@@ -1,4 +1,5 @@
-site_name: Justin Albrethsen's blog
+site_url: "https://justin.albrethseng.com/"
+site_name: Justin Albrethsen's site
 nav:
  - Home: index.md
  - About: about.md

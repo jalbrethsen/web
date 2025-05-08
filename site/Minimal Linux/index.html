@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://justin.albrethseng.com/Minimal%20Linux/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Tiny Linux - Justin Albrethsen's site</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../css/brands.min.css" rel="stylesheet">
+        <link href="../css/solid.min.css" rel="stylesheet">
+        <link href="../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Justin Albrethsen's site</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../about/" class="nav-link">About</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Linux</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Tiny Linux</a>
+</li>
+                                    
+<li>
+    <a href="../Linux%20commands/" class="dropdown-item">Linux Commands</a>
+</li>
+                                    
+<li>
+    <a href="../Linux%20tunnels/" class="dropdown-item">Linux Tunnels</a>
+</li>
+                                    
+<li>
+    <a href="../Ubuntu%20thin%20client/" class="dropdown-item">Thin Client</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Proxmox</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../Proxmox%20Resize%20Disk/" class="dropdown-item">Proxmox Resize Disk</a>
+</li>
+                                    
+<li>
+    <a href="../Proxmox%20import%20parrot%20.ova/" class="dropdown-item">Proxmox Import ova</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Misc.</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../SSH/" class="dropdown-item">SSH Commands</a>
+</li>
+                                    
+<li>
+    <a href="../FPGA%20Tang%20Nano%209K/" class="dropdown-item">FPGA</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../about/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../Linux%20commands/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#build-linux" class="nav-link">Build Linux</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#build-busybox" class="nav-link">Build busybox</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#build-initrd" class="nav-link">Build initrd</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="1"><a href="#make-bootable-usb" class="nav-link">Make bootable USB</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<p>Install standard build tools (gcc, bison, flex, git, etc..)</p>
+<h1 id="build-linux">Build Linux</h1>
+<p>Clone latest stable release of linux kernel</p>
+<pre><code>git clone --depth=1 --branch=v6.13 git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+</code></pre>
+<p>Make the minimal config included with linux</p>
+<pre><code>make tinyconfig
+</code></pre>
+<p>Then you have the tiniest possible kernel, to make it usable add a few key items</p>
+<pre><code>make menuconfig
+</code></pre>
+<blockquote>
+<p>64-bit kernel</p>
+<p>General setup/Initial RAM filesystem and RAM disk (initramfs/initrd) support</p>
+<p>General setup/Configure standard kernel features (expert users)/Enable support for printk</p>
+<p>Executable file formats/kernel support for elf binaries</p>
+<p>Executable file formats/kernel support for scripts starting with #!</p>
+<p>Device drivers/Character devices/Enable TTY</p>
+<p>File systems/Pseudo filesystems/proc support</p>
+<p>File systems/Pseudo filesystems/sysfs support</p>
+<p>Power management and ACPI options / ACPI support</p>
+<p>Processor type and features / EFI runtime service support</p>
+<p>Processor type and features / EFI runtime service support / EFI stub support</p>
+<p>Device drivers / Graphics support / Framebuffer devices / Support for frame buffer device drivers</p>
+<p>Device drivers / Graphics support / Framebuffer devices / Support for frame buffer device drivers / EFI-based Framebuffer Support</p>
+<p>Device drivers / Graphics support / Console display driver support / Framebuffer Console support</p>
+<p>(not working)Enable the block layer </p>
+<p>Device drivers / Network device support</p>
+<p>Device drivers / Network device support / Wireguard</p>
+<p>Networking Support</p>
+<p>Networking Support / Wireless / cfg80211</p>
+<p>Networking Support / Wireless / Generic IEEE 802.11 Networking Stack (mac80211)</p>
+<p>Networking Support / Networking Options / TCP/IP Networking</p>
+<p>Networking Support / Networking Options / Unix Domain Sockets</p>
+</blockquote>
+<p>Save the config and then compile the kernel</p>
+<pre><code>make -j 6
+</code></pre>
+<h1 id="build-busybox">Build busybox</h1>
+<p>Get the source</p>
+<pre><code>wget https://busybox.net/downloads/busybox-1.37.0.tar.bz2
+tar -xvjf busybox-1.37.0.tar.bz2
+cd busybox-1.37.0/
+</code></pre>
+<p>Now we make the config</p>
+<pre><code>make menuconfig
+</code></pre>
+<blockquote>
+<p>Enable Settings/Build static binary (no shared libs)</p>
+</blockquote>
+<pre><code>make -j 6
+</code></pre>
+<h1 id="build-initrd">Build initrd</h1>
+<p>we create a directory to store our init scripts and copy our busybox</p>
+<pre><code>mkdir ~/initramfs
+mkdir ~/initramfs/bin
+cp busybox ~/initramfs/bin/
+</code></pre>
+<p>Next we create an init script in \~/initramfs/bin/init</p>
+<pre><code>#!/bin/busybox sh
+/bin/busybox mkdir -p /usr/bin
+/bin/busybox mkdir -p /usr/sbin
+/bin/busybox mkdir /sbin
+/bin/busybox mkdir /proc
+/bin/busybox mkdir /sys
+/bin/busybox mount -t sysfs none /sys
+/bin/busybox mount -t proc none /proc
+/bin/busybox --install -s
+
+exec /bin/sh
+</code></pre>
+<p>Then make  it executable</p>
+<pre><code>chmod +x ~/initramfs/bin/init  
+</code></pre>
+<p>Now we go to the directory and turn it into an initrd</p>
+<pre><code>cd ~/initramfs
+find . -print0 | cpio --null --create --verbose --format=newc | gzip --best &gt; ../initrd
+</code></pre>
+<p>Now we have initrd file in \~/initrd</p>
+<h1 id="make-bootable-usb">Make bootable USB</h1>
+<pre><code>sudo fdisk /dev/sdb
+</code></pre>
+<p>Create new partition and set type to EFI System</p>
+<p>create fat32 filesystem</p>
+<pre><code>sudo mkfs.fat -F 32 /dev/sdb1
+</code></pre>
+<p>mount /dev/sdb1 /mnt/hda</p>
+<pre><code>cp ~/initrd /mnt/hda
+cp ~linux/arch/x86/boot/bzImage /mnt/hda
+</code></pre>
+<p>create startup script startup.nsh</p>
+<pre><code>fs0:\bzImage initrd=initrd
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js"></script>
+        <script src="../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
