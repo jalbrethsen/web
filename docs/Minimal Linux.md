@@ -1,4 +1,9 @@
-Install standard build tools (gcc, bison, flex, git, etc..)
+# Objective
+My goal with this project is to see how small I can make a functional system, it can be useful on storage constrained embedded devices to create a OS with only the tools needed to do a job and nothing more. This is an attempt to create a base template for such a system and also to further my understanding of computers and Linux.
+
+# Install dependencies
+
+Install standard build tools using apt, zypper, pacman, etc.. (gcc, bison, flex, git, etc..)
 
 # Build Linux
 
@@ -8,13 +13,13 @@ Clone latest stable release of linux kernel
 git clone --depth=1 --branch=v6.13 git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
 ```
 
-Make the minimal config included with linux
+Make the minimal config included with linux, this config is included by default but it is not quite usable
 
 ```
 make tinyconfig
 ```
 
-Then you have the tiniest possible kernel, to make it usable add a few key items
+Then you have the tiniest possible kernel, to make it usable add a few key items.
 
 ```
 make menuconfig
@@ -47,22 +52,6 @@ make menuconfig
 > Device drivers / Graphics support / Framebuffer devices / Support for frame buffer device drivers / EFI-based Framebuffer Support
 >
 > Device drivers / Graphics support / Console display driver support / Framebuffer Console support
->
-> (not working)Enable the block layer 
->
-> Device drivers / Network device support
->
-> Device drivers / Network device support / Wireguard
->
-> Networking Support
->
-> Networking Support / Wireless / cfg80211
->
-> Networking Support / Wireless / Generic IEEE 802.11 Networking Stack (mac80211)
->
-> Networking Support / Networking Options / TCP/IP Networking
->
-> Networking Support / Networking Options / Unix Domain Sockets
 
 Save the config and then compile the kernel
 
@@ -72,7 +61,8 @@ make -j 6
 
 # Build busybox
 
-Get the source
+Busybox is a good tool for simplifying the setup of our embedded system as it includes all your tools in a single binary.
+
 
 ```
 wget https://busybox.net/downloads/busybox-1.37.0.tar.bz2
@@ -80,7 +70,7 @@ tar -xvjf busybox-1.37.0.tar.bz2
 cd busybox-1.37.0/
 ```
 
-Now we make the config
+Now we make the config, here you can choose what tools to package within busybox
 
 ```
 make menuconfig
@@ -131,7 +121,12 @@ cd ~/initramfs
 find . -print0 | cpio --null --create --verbose --format=newc | gzip --best > ../initrd
 ```
 
-Now we have initrd file in \~/initrd
+Now we have initrd file in \~/initrd  
+You can boot this initrd and kernel with qemu to get a shell
+```
+qemu-system-x86_64 -kernel arch/x86/boot/bzImage -initrd ~/initrd
+```
+You should now be greeted with a simple shell that you can interact with your minimal linux system
 
 # Make bootable USB
 
@@ -159,3 +154,9 @@ create startup script startup.nsh
 ```
 fs0:\bzImage initrd=initrd
 ```
+Then copy the startup.nsh to the root of your usb stick
+```
+cp startup.nsh /mnt/hda
+```
+Plugin and bootup your minimal linux on real hardware. You may need to navigate the efi shell if this startup.nsh does not get called correctly.
+
