@@ -1,0 +1,16 @@
+site_name: Justin Albrethsen's blog
+nav:
+ - Home: index.md
+ - About: about.md
+ - Linux: 
+    - Tiny Linux: 'Minimal Linux.md' 
+    - Linux Commands: 'Linux commands.md'
+    - Linux Tunnels: 'Linux tunnels.md'
+    - Thin Client: 'Ubuntu thin client.md'
+ - Proxmox:
+    - Proxmox Resize Disk: 'Proxmox Resize Disk.md'
+    - Proxmox Import ova: 'Proxmox import parrot .ova.md'
+ #- Homeassistant: null
+ - Misc.:   
+    - SSH Commands: SSH.md
+    - FPGA: 'FPGA Tang Nano 9K.md'
