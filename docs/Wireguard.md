@@ -1,29 +1,32 @@
-NETNS_NAME=container   
-WG_IFACE_NAME=wg0   
-CMD="curl [ifconfig.me](http://ifconfig.me)"   
-# from proton wireguard config   
-WG_ADDR=10.2.0.2/32   
-# save privkey from config to file   
-WG_PRIV_KEY=/home/justin/proton-wg/privkey-1   
-WG_ENDPOINT=103.125.235.18:51820   
-WG_PEER=agoivyLoPqor8MxA/s6UWJSMcA2pMl+ajO3vy/q3oWQ=   
-  
+# Wireguard VPN in network namespace
+This project is meant to enable multiple simultaneous Wireguard VPNs running on the same device by keeping them in separate network namespaces. You can get some free Wireguard VPNs with a Proton account.
+
+## Define configurables
+If you want several VPNs you would want to wrap this in a script, for now we walk through a single example.
+```
+NETNS_NAME=container-0   
+WG_IFACE_NAME=wg-0   
+CMD="curl http://ifconfig.me"   
+```
+Additionally you can get your WG_PRIV_KEY, WG_PEER, and WG_ENDPOINT from your VPN config downloaded from Proton.
+## Setup namespace and create interface
+Now we create a new network namespace, new interface, and bind the interface to the namespace
+```  
 sudo ip netns add {NETNS_NAME}   
 sudo ip link add {WG_IFACE_NAME} type wireguard   
 sudo ip link set {WG_IFACE_NAME} netns {NETNS_NAME}   
+```
+## Configure Wireguard
+Now you can use the info from your wireguard config to configure the interface
+```
 sudo ip -n {NETNS_NAME} addr add {WG_ADDR} dev {WG_IFACE_NAME}   
 sudo ip netns exec {NETNS_NAME} wg set {WG_IFACE_NAME} private-key {WG_PRIV_KEY} peer {WG_PEER} allowed-ips 0.0.0.0/0 endpoint {WG_ENDPOINT}   
+```
+## Test it out
+Now we bring the interface up, add a default route through the wireguard interface and test your public IP address.
+```
 sudo ip -n {NETNS_NAME} link set {WG_IFACE_NAME} up   
 sudo ip -n {NETNS_NAME} route add default dev {WG_IFACE_NAME   
 sudo ip netns exec {NETNS_NAME} {CMD}   
-  
-# example   
-sudo ip netns add container   
-sudo ip link add wg0 type wireguard   
-sudo ip link set wg0 netns container   
-sudo ip -n container addr add 10.2.0.2/32 dev wg0   
-sudo ip netns exec container wg set wg0 private-key /home/justin/proton-wg/privkey-1 peer agoivyLoPqor8MxA/s6UWJSMcA2pMl+ajO3vy/q3oWQ= allowed-ips 0.0.0.0/  
-0 endpoint 103.125.235.18:51820   
-sudo ip -n container link set wg0 up   
-sudo ip -n container route add default dev wg0   
-sudo ip netns exec container curl [ifconfig.me](http://ifconfig.me)
+```
+Now you should see your public IP is from whatever Wireguard server you are connected to.

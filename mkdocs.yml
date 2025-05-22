@@ -3,14 +3,14 @@ site_name: Justin Albrethsen's site
 nav:
  - Home: index.md
  - Publications: publications.md
- - Linux: 
-    - Tiny Linux: 'Minimal Linux.md' 
+ - Projects:
+   - Tiny Linux: 'Minimal Linux.md' 
+   - Ubuntu Thin Client: 'Ubuntu thin client.md'
+   - Wyoming on Echo Dot: 'EchoWyoming.md'
+ - Reference Materials:
     - Linux Commands: 'Linux commands.md'
     - Linux Tunnels: 'Linux tunnels.md'
-    - Thin Client: 'Ubuntu thin client.md'
- - Proxmox:
     - Proxmox Resize Disk: 'Proxmox Resize Disk.md'
     - Proxmox Import ova: 'Proxmox import parrot .ova.md'
- - Misc.:   
     - SSH Commands: SSH.md
     - FPGA: 'FPGA Tang Nano 9K.md'
