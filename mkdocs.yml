@@ -7,6 +7,7 @@ nav:
    - Tiny Linux: 'Minimal Linux.md' 
    - Ubuntu Thin Client: 'Ubuntu thin client.md'
    - Wyoming on Echo Dot: 'EchoWyoming.md'
+   - Wireguard in Network Namespace: 'Wireguard.md'
  - Reference Materials:
     - Linux Commands: 'Linux commands.md'
     - Linux Tunnels: 'Linux tunnels.md'
